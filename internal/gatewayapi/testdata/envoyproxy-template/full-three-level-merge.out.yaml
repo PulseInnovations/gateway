@@ -1,0 +1,52 @@
+# Expected output: Three-level merge with Gateway having highest precedence
+# Merge hierarchy (lowest to highest precedence):
+#   1. Template (base defaults)
+#   2. GatewayClass EnvoyProxy
+#   3. Gateway EnvoyProxy (highest)
+#
+# Result:
+# - replicas: 2 (from Gateway, overrides GatewayClass's 5 and Template's 3)
+# - env vars: All three merged, with SHARED_ENV = "from_gateway" (Gateway wins)
+#   - TEMPLATE_ENV: template_value (inherited from template)
+#   - GATEWAYCLASS_ENV: gatewayclass_value (inherited from GatewayClass)
+#   - GATEWAY_ENV: gateway_value (from Gateway)
+#   - SHARED_ENV: from_gateway (Gateway overrides GatewayClass and Template)
+# - image: envoyproxy/envoy:v1.28.0 (from GatewayClass, Gateway didn't override)
+# - resources: inherited from Template
+# - annotations: All three merged, with shared-annotation = "from-gateway" (Gateway wins)
+# - envoyService.type: NodePort (from Gateway, overrides Template's LoadBalancer)
+
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: gateway-proxy
+  namespace: default
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 2
+        container:
+          env:
+          - name: GATEWAY_ENV
+            value: gateway_value
+          - name: GATEWAYCLASS_ENV
+            value: gatewayclass_value
+          - name: TEMPLATE_ENV
+            value: template_value
+          - name: SHARED_ENV
+            value: from_gateway
+          image: "envoyproxy/envoy:v1.28.0"
+          resources:
+            requests:
+              cpu: 200m
+              memory: 1Gi
+        pod:
+          annotations:
+            template-annotation: template-value
+            shared-annotation: from-gateway
+            gatewayclass-annotation: gatewayclass-value
+            gateway-annotation: gateway-value
+      envoyService:
+        type: NodePort

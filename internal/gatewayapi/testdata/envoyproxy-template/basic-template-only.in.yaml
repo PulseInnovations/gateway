@@ -1,0 +1,30 @@
+# Test case: Basic template-only configuration
+# This test verifies that when only an EnvoyProxyTemplate is configured
+# (no GatewayClass or Gateway-level EnvoyProxy), the template is used as-is.
+
+envoyGateway:
+  apiVersion: gateway.envoyproxy.io/v1alpha1
+  kind: EnvoyGateway
+  gateway:
+    controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyProxyTemplate:
+        provider:
+          type: Kubernetes
+          kubernetes:
+            envoyDeployment:
+              replicas: 3
+              container:
+                image: "envoyproxy/envoy:testing"
+                env:
+                - name: TEMPLATE_ENV
+                  value: template_value
+                resources:
+                  requests:
+                    cpu: 200m
+                    memory: 1Gi
+              pod:
+                annotations:
+                  template-annotation: template-value

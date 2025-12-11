@@ -183,6 +183,7 @@ func (r *Runner) subscribeAndTranslate(sub <-chan watchable.Snapshot[string, *re
 					MergeGateways:           gatewayapi.IsMergeGatewaysEnabled(resources),
 					WasmCache:               r.wasmCache,
 					RunningOnHost:           r.EnvoyGateway.Provider != nil && r.EnvoyGateway.Provider.IsRunningOnHost(),
+					EnvoyProxyTemplate:      r.EnvoyGateway.GetEnvoyProxyTemplate(),
 					Logger:                  traceLogger,
 				}
 

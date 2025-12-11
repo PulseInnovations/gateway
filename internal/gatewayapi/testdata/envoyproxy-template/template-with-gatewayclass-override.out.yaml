@@ -1,0 +1,37 @@
+# Expected output: GatewayClass overrides take precedence over template
+# - replicas: 5 (from GatewayClass, overrides template's 3)
+# - env vars: merged (both TEMPLATE_ENV and GATEWAYCLASS_ENV)
+# - image: envoyproxy/envoy:v1.28.0 (from GatewayClass, template had none)
+# - resources: inherited from template (template's cpu/memory requests)
+# - annotations: merged (both template and gatewayclass annotations)
+# - tolerations: inherited from template
+
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: gatewayclass-proxy
+  namespace: envoy-gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 5
+        container:
+          env:
+          - name: GATEWAYCLASS_ENV
+            value: gatewayclass_value
+          - name: TEMPLATE_ENV
+            value: template_value
+          image: "envoyproxy/envoy:v1.28.0"
+          resources:
+            requests:
+              cpu: 200m
+              memory: 1Gi
+        pod:
+          annotations:
+            template-annotation: template-value
+            gatewayclass-annotation: gatewayclass-value
+          tolerations:
+          - key: template-key
+            operator: Exists
