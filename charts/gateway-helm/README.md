@@ -103,9 +103,13 @@ helm uninstall eg -n envoy-gateway-system
 | global.images.envoyGateway.image | string | `nil` |  |
 | global.images.envoyGateway.pullPolicy | string | `nil` |  |
 | global.images.envoyGateway.pullSecrets | list | `[]` |  |
+| global.images.envoyProxy.image | string | `""` | Full image name for Envoy Proxy data plane |
+| global.images.envoyProxy.pullPolicy | string | `""` | Image pull policy for Envoy Proxy |
+| global.images.envoyProxy.pullSecrets | list | `[]` | Pull secrets for Envoy Proxy image |
 | global.images.ratelimit.image | string | `"docker.io/envoyproxy/ratelimit:master"` |  |
 | global.images.ratelimit.pullPolicy | string | `"IfNotPresent"` |  |
 | global.images.ratelimit.pullSecrets | list | `[]` |  |
+| global.envoyProxyDefault.mergeType | string | `""` | How EnvoyProxy configs are merged: "", "StrategicMerge", or "JSONMerge" |
 | hpa.behavior | object | `{}` |  |
 | hpa.enabled | bool | `false` |  |
 | hpa.maxReplicas | int | `1` |  |
