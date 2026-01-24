@@ -205,7 +205,7 @@ provider:
     shutdownManager:
       image: {{ include "eg.image" . }}
     {{- if or .Values.global.images.envoyProxy.image .Values.global.envoyProxyDefault.mergeType }}
-    envoyProxyDefault:
+    envoyProxy:
       {{- with .Values.global.envoyProxyDefault.mergeType }}
       mergeType: {{ . }}
       {{- end }}

@@ -98,18 +98,18 @@ helm uninstall eg -n envoy-gateway-system
 | deployment.ports[3].targetPort | int | `19001` |  |
 | deployment.priorityClassName | string | `nil` |  |
 | deployment.replicas | int | `1` |  |
+| global.envoyProxyDefault.mergeType | string | `""` |  |
 | global.imagePullSecrets | list | `[]` | Global override for image pull secrets |
 | global.imageRegistry | string | `""` | Global override for image registry |
 | global.images.envoyGateway.image | string | `nil` |  |
 | global.images.envoyGateway.pullPolicy | string | `nil` |  |
 | global.images.envoyGateway.pullSecrets | list | `[]` |  |
-| global.images.envoyProxy.image | string | `""` | Full image name for Envoy Proxy data plane |
-| global.images.envoyProxy.pullPolicy | string | `""` | Image pull policy for Envoy Proxy |
-| global.images.envoyProxy.pullSecrets | list | `[]` | Pull secrets for Envoy Proxy image |
+| global.images.envoyProxy.image | string | `""` |  |
+| global.images.envoyProxy.pullPolicy | string | `""` |  |
+| global.images.envoyProxy.pullSecrets | list | `[]` |  |
 | global.images.ratelimit.image | string | `"docker.io/envoyproxy/ratelimit:master"` |  |
 | global.images.ratelimit.pullPolicy | string | `"IfNotPresent"` |  |
 | global.images.ratelimit.pullSecrets | list | `[]` |  |
-| global.envoyProxyDefault.mergeType | string | `""` | How EnvoyProxy configs are merged: "", "StrategicMerge", or "JSONMerge" |
 | hpa.behavior | object | `{}` |  |
 | hpa.enabled | bool | `false` |  |
 | hpa.maxReplicas | int | `1` |  |
