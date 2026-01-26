@@ -161,7 +161,7 @@ func TestAttachEnvoyProxy(t *testing.T) {
 		gatewayParametersRef  *gwapiv1.LocalParametersReference
 		envoyProxyForGateway  *egv1a1.EnvoyProxy
 		envoyProxyForGWClass  *egv1a1.EnvoyProxy
-		envoyProxyDefault     *egv1a1.EnvoyProxySpec
+		envoyProxyDefaultSpec *egv1a1.EnvoyProxySpec
 		expectedMergeGateways *bool
 		expectedConcurrency   *int32
 		expectEnvoyProxyNil   bool
@@ -172,7 +172,7 @@ func TestAttachEnvoyProxy(t *testing.T) {
 		},
 		{
 			name: "only default spec - should use default",
-			envoyProxyDefault: &egv1a1.EnvoyProxySpec{
+			envoyProxyDefaultSpec: &egv1a1.EnvoyProxySpec{
 				Concurrency: ptr.To[int32](4),
 			},
 			expectedConcurrency: ptr.To[int32](4),
@@ -188,7 +188,7 @@ func TestAttachEnvoyProxy(t *testing.T) {
 					Concurrency: ptr.To[int32](8),
 				},
 			},
-			envoyProxyDefault: &egv1a1.EnvoyProxySpec{
+			envoyProxyDefaultSpec: &egv1a1.EnvoyProxySpec{
 				Concurrency: ptr.To[int32](4),
 			},
 			expectedConcurrency: ptr.To[int32](8),
@@ -218,14 +218,14 @@ func TestAttachEnvoyProxy(t *testing.T) {
 					Concurrency: ptr.To[int32](8),
 				},
 			},
-			envoyProxyDefault: &egv1a1.EnvoyProxySpec{
+			envoyProxyDefaultSpec: &egv1a1.EnvoyProxySpec{
 				Concurrency: ptr.To[int32](4),
 			},
 			expectedConcurrency: ptr.To[int32](16),
 		},
 		{
 			name: "default spec with merge gateways enabled",
-			envoyProxyDefault: &egv1a1.EnvoyProxySpec{
+			envoyProxyDefaultSpec: &egv1a1.EnvoyProxySpec{
 				MergeGateways: ptr.To(true),
 				Concurrency:   ptr.To[int32](4),
 			},
@@ -243,7 +243,7 @@ func TestAttachEnvoyProxy(t *testing.T) {
 					MergeGateways: ptr.To(false),
 				},
 			},
-			envoyProxyDefault: &egv1a1.EnvoyProxySpec{
+			envoyProxyDefaultSpec: &egv1a1.EnvoyProxySpec{
 				MergeGateways: ptr.To(true),
 			},
 			expectedMergeGateways: ptr.To(false),

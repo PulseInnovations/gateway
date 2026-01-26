@@ -181,27 +181,27 @@ imagePullSecrets: {{ toYaml list }}
 The default Envoy Gateway configuration.
 */}}
 {{- define "eg.default-envoy-gateway-config" -}}
-{{- if or .Values.global.images.envoyProxy.image .Values.global.envoyProxyDefault.mergeType }}
-envoyProxy:
-  spec:
-    {{- with .Values.global.envoyProxyDefault.mergeType }}
-    mergeType: {{ . }}
-    {{- end }}
-    {{- if .Values.global.images.envoyProxy.image }}
-    provider:
-      type: Kubernetes
-      kubernetes:
-        envoyDeployment:
-          container:
-            image: {{ include "eg.envoyProxy.image" . }}
-            {{- with .Values.global.images.envoyProxy.pullPolicy }}
-            imagePullPolicy: {{ . }}
-            {{- end }}
-          {{- if (or .Values.global.imagePullSecrets .Values.global.images.envoyProxy.pullSecrets) }}
-          pod:
-            {{- include "eg.envoyProxy.image.pullSecrets" . | nindent 14 }}
-          {{- end }}
+{{- if or .Values.global.images.envoyProxy.image .Values.envoyProxy }}
+{{- $envoyProxyBase := .Values.envoyProxy | default dict }}
+{{- $imageOverride := dict }}
+{{- if .Values.global.images.envoyProxy.image }}
+  {{- $container := dict "image" (include "eg.envoyProxy.image" .) }}
+  {{- if .Values.global.images.envoyProxy.pullPolicy }}
+    {{- $_ := set $container "imagePullPolicy" .Values.global.images.envoyProxy.pullPolicy }}
   {{- end }}
+  {{- $deployment := dict "container" $container }}
+  {{- if or .Values.global.imagePullSecrets .Values.global.images.envoyProxy.pullSecrets }}
+    {{- $pullSecretsYaml := include "eg.envoyProxy.image.pullSecrets" . }}
+    {{- $pullSecrets := dict "imagePullSecrets" ($pullSecretsYaml | fromYamlArray) }}
+    {{- $_ := set $deployment "pod" $pullSecrets }}
+  {{- end }}
+  {{- $kubernetes := dict "envoyDeployment" $deployment }}
+  {{- $provider := dict "type" "Kubernetes" "kubernetes" $kubernetes }}
+  {{- $imageOverride = dict "provider" $provider }}
+{{- end }}
+{{- $merged := mustMergeOverwrite (dict) $envoyProxyBase $imageOverride }}
+envoyProxy:
+{{ toYaml $merged | indent 2 }}
 {{- end }}
 provider:
   type: Kubernetes

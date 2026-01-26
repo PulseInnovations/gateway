@@ -125,7 +125,7 @@ func (e *EnvoyGateway) TopologyInjectorDisabled() bool {
 
 // GetEnvoyProxyDefault returns the default EnvoyProxySpec if specified,
 // otherwise returns nil.
-func (e *EnvoyGateway) GetEnvoyProxyDefault() *EnvoyProxySpec {
+func (e *EnvoyGateway) GetEnvoyProxyDefaultSpec() *EnvoyProxySpec {
 	return e.EnvoyProxy
 }
 

@@ -70,7 +70,7 @@ func (g *GatewayContext) attachEnvoyProxy(resources *resource.Resources, epMap m
 	// Merge all EnvoyProxy configs. On error, MergeEnvoyProxyConfigs returns a fallback
 	// configuration so the gateway can continue to function.
 	merged, err := MergeEnvoyProxyConfigs(
-		resources.EnvoyProxyDefault,
+		resources.EnvoyProxyDefaultSpec,
 		resources.EnvoyProxyForGatewayClass,
 		gatewayProxy,
 	)
