@@ -98,8 +98,6 @@ helm uninstall eg -n envoy-gateway-system
 | deployment.ports[3].targetPort | int | `19001` |  |
 | deployment.priorityClassName | string | `nil` |  |
 | deployment.replicas | int | `1` |  |
-| envoyProxy | object | `{}` |  |
-| envoyProxy | object | `{}` |  |
 | global.imagePullSecrets | list | `[]` | Global override for image pull secrets |
 | global.imageRegistry | string | `""` | Global override for image registry |
 | global.images.envoyGateway.image | string | `nil` |  |
