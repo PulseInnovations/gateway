@@ -181,6 +181,28 @@ imagePullSecrets: {{ toYaml list }}
 The default Envoy Gateway configuration.
 */}}
 {{- define "eg.default-envoy-gateway-config" -}}
+{{- if or .Values.global.images.envoyProxy.image .Values.global.envoyProxyDefault.mergeType }}
+envoyProxy:
+  spec:
+    {{- with .Values.global.envoyProxyDefault.mergeType }}
+    mergeType: {{ . }}
+    {{- end }}
+    {{- if .Values.global.images.envoyProxy.image }}
+    provider:
+      type: Kubernetes
+      kubernetes:
+        envoyDeployment:
+          container:
+            image: {{ include "eg.envoyProxy.image" . }}
+            {{- with .Values.global.images.envoyProxy.pullPolicy }}
+            imagePullPolicy: {{ . }}
+            {{- end }}
+          {{- if (or .Values.global.imagePullSecrets .Values.global.images.envoyProxy.pullSecrets) }}
+          pod:
+            {{- include "eg.envoyProxy.image.pullSecrets" . | nindent 14 }}
+          {{- end }}
+  {{- end }}
+{{- end }}
 provider:
   type: Kubernetes
   kubernetes:
@@ -204,27 +226,6 @@ provider:
       {{- end }}
     shutdownManager:
       image: {{ include "eg.image" . }}
-    {{- if or .Values.global.images.envoyProxy.image .Values.global.envoyProxyDefault.mergeType }}
-    envoyProxy:
-      {{- with .Values.global.envoyProxyDefault.mergeType }}
-      mergeType: {{ . }}
-      {{- end }}
-      {{- if .Values.global.images.envoyProxy.image }}
-      provider:
-        type: Kubernetes
-        kubernetes:
-          envoyDeployment:
-            container:
-              image: {{ include "eg.envoyProxy.image" . }}
-              {{- with .Values.global.images.envoyProxy.pullPolicy }}
-              imagePullPolicy: {{ . }}
-              {{- end }}
-            {{- if (or .Values.global.imagePullSecrets .Values.global.images.envoyProxy.pullSecrets) }}
-            pod:
-              {{- include "eg.envoyProxy.image.pullSecrets" . | nindent 14 }}
-            {{- end }}
-      {{- end }}
-    {{- end }}
 {{- with .Values.config.envoyGateway.extensionApis }}
 extensionApis:
   {{- toYaml . | nindent 2 }}
