@@ -35,26 +35,6 @@ global:
       # List of secrets in the same namespace of the component that can be used to pull images from private repositories.
       pullSecrets: []
 
-# EnvoyProxy default configuration applied to all Gateways.
-# This allows you to configure default settings for the Envoy Proxy data plane.
-# Settings defined here will be merged with image overrides from global.images.envoyProxy.
-# The image settings from global.images.envoyProxy take precedence if both are specified.
-#
-# +optional
-envoyProxy: {}
-  # Example configuration:
-  # mergeType: StrategicMerge
-  # logging:
-  #   level:
-  #     default: info
-  # provider:
-  #   kubernetes:
-  #     envoyDeployment:
-  #       replicas: 2
-  #       pod:
-  #         annotations:
-  #           custom-annotation: value
-
 podDisruptionBudget:
   minAvailable: 0
   # maxUnavailable: 1
@@ -174,13 +154,3 @@ certgen:
 topologyInjector:
   enabled: true
   annotations: {}
-
-# Settings for the default EnvoyProxy configuration applied to all Gateways.
-# These settings are used when no GatewayClass or Gateway-level EnvoyProxy is specified.
-# Any fields from the EnvoyProxy can be defined here.
-envoyProxy: {}
-  # mergeType specifies how EnvoyProxy configurations are merged across levels.
-  # - "Replace": Use replace behavior - most specific config wins, no merging (default)
-  # - "StrategicMerge": Merge configs using Kubernetes strategic merge patch
-  # - "JSONMerge": Merge configs using JSON merge patch (RFC 7396)
-  #   (empty): Use replace behavior

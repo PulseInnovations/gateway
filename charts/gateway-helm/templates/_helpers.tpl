@@ -181,8 +181,8 @@ imagePullSecrets: {{ toYaml list }}
 The default Envoy Gateway configuration.
 */}}
 {{- define "eg.default-envoy-gateway-config" -}}
-{{- if or .Values.global.images.envoyProxy.image .Values.envoyProxy }}
-{{- $envoyProxyBase := .Values.envoyProxy | default dict }}
+{{- if or .Values.global.images.envoyProxy.image .Values.config.envoyGateway.envoyProxy }}
+{{- $envoyProxyBase := .Values.config.envoyGateway.envoyProxy | default dict }}
 {{- $imageOverride := dict }}
 {{- if .Values.global.images.envoyProxy.image }}
   {{- $container := dict "image" (include "eg.envoyProxy.image" .) }}
