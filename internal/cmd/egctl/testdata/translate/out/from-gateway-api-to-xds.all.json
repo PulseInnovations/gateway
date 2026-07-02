@@ -314,7 +314,19 @@
                             }
                           }
                         },
-                        "loadBalancingWeight": 1
+                        "loadBalancingWeight": 1,
+                        "metadata": {
+                          "filterMetadata": {
+                            "envoy-gateway": {
+                              "backend": {
+                                "kind": "Service",
+                                "name": "backend",
+                                "namespace": "default",
+                                "sectionName": "3000"
+                              }
+                            }
+                          }
+                        }
                       }
                     ],
                     "loadBalancingWeight": 1,
@@ -355,7 +367,19 @@
                             }
                           }
                         },
-                        "loadBalancingWeight": 1
+                        "loadBalancingWeight": 1,
+                        "metadata": {
+                          "filterMetadata": {
+                            "envoy-gateway": {
+                              "backend": {
+                                "kind": "Service",
+                                "name": "backend",
+                                "namespace": "default",
+                                "sectionName": "9000"
+                              }
+                            }
+                          }
+                        }
                       }
                     ],
                     "loadBalancingWeight": 1,
@@ -396,7 +420,19 @@
                             }
                           }
                         },
-                        "loadBalancingWeight": 1
+                        "loadBalancingWeight": 1,
+                        "metadata": {
+                          "filterMetadata": {
+                            "envoy-gateway": {
+                              "backend": {
+                                "kind": "Service",
+                                "name": "backend",
+                                "namespace": "default",
+                                "sectionName": "3000"
+                              }
+                            }
+                          }
+                        }
                       }
                     ],
                     "loadBalancingWeight": 1,
@@ -437,7 +473,19 @@
                             }
                           }
                         },
-                        "loadBalancingWeight": 1
+                        "loadBalancingWeight": 1,
+                        "metadata": {
+                          "filterMetadata": {
+                            "envoy-gateway": {
+                              "backend": {
+                                "kind": "Service",
+                                "name": "backend",
+                                "namespace": "default",
+                                "sectionName": "3000"
+                              }
+                            }
+                          }
+                        }
                       }
                     ],
                     "loadBalancingWeight": 1,
@@ -478,7 +526,19 @@
                             }
                           }
                         },
-                        "loadBalancingWeight": 1
+                        "loadBalancingWeight": 1,
+                        "metadata": {
+                          "filterMetadata": {
+                            "envoy-gateway": {
+                              "backend": {
+                                "kind": "Service",
+                                "name": "backend",
+                                "namespace": "default",
+                                "sectionName": "3000"
+                              }
+                            }
+                          }
+                        }
                       }
                     ],
                     "loadBalancingWeight": 1,

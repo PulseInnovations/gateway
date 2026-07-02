@@ -31,6 +31,14 @@
             address: 7.7.7.7
             portValue: 8080
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: ""
+              name: service-1
+              namespace: default
+              sectionName: "8080"
     loadBalancingWeight: 1
     locality:
       region: httproute/default/httproute-1/rule/0/backend/0
@@ -51,6 +59,14 @@
             address: 7.7.7.7
             portValue: 8080
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: ""
+              name: service-1
+              namespace: default
+              sectionName: "8080"
     loadBalancingWeight: 1
     locality:
       region: tlsroute/default/tlsroute-1/rule/-1/backend/0
@@ -71,6 +87,14 @@
             address: 7.7.7.7
             portValue: 8080
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: ""
+              name: service-1
+              namespace: default
+              sectionName: "8080"
     loadBalancingWeight: 1
     locality:
       region: tlsroute/default/tlsroute-2/rule/-1/backend/0
@@ -91,6 +115,14 @@
             address: 1.1.1.1
             portValue: 3001
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Backend
+              name: backend-ip
+              namespace: default
+              sectionName: ""
     loadBalancingWeight: 1
     locality:
       region: tcproute/default/tcprou
@@ -110,6 +142,14 @@
             address: 1.1.1.1
             portValue: 3001
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Backend
+              name: backend-ip
+              namespace: default
+              sectionName: ""
     loadBalancingWeight: 1
     locality:
       region: udproute/default/udprou

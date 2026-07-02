@@ -314,7 +314,19 @@
                             }
                           }
                         },
-                        "loadBalancingWeight": 1
+                        "loadBalancingWeight": 1,
+                        "metadata": {
+                          "filterMetadata": {
+                            "envoy-gateway": {
+                              "backend": {
+                                "kind": "Service",
+                                "name": "backend",
+                                "namespace": "envoy-gateway-system",
+                                "sectionName": "3000"
+                              }
+                            }
+                          }
+                        }
                       }
                     ],
                     "loadBalancingWeight": 1,

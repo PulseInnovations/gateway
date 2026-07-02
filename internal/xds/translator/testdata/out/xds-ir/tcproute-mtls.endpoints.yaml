@@ -9,6 +9,12 @@
       loadBalancingWeight: 1
       metadata:
         filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Service
+              name: service-1
+              namespace: default
+              sectionName: "8080"
           envoy.transport_socket_match:
             name: tcproute/default/tcproute-1/rule/-1/tls/0
     loadBalancingWeight: 1

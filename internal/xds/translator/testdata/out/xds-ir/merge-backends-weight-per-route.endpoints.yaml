@@ -7,6 +7,14 @@
             address: 7.7.7.8
             portValue: 8080
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Service
+              name: other-service-a
+              namespace: default
+              sectionName: "8080"
     loadBalancingWeight: 70
     locality:
       region: httproute/default/http-route-a/rule/0/backend/1
@@ -27,6 +35,14 @@
             address: 7.7.7.9
             portValue: 8080
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Service
+              name: other-service-b
+              namespace: default
+              sectionName: "8080"
     loadBalancingWeight: 10
     locality:
       region: httproute/default/http-route-b/rule/0/backend/1
@@ -47,6 +63,14 @@
             address: 7.7.7.7
             portValue: 8080
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Service
+              name: shared-service
+              namespace: default
+              sectionName: "8080"
     loadBalancingWeight: 30
     locality:
       region: service/default/shared-service/8080/http

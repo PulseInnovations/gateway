@@ -7,6 +7,14 @@
             address: 7.7.7.7
             portValue: 80
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Service
+              name: app1
+              namespace: ns1
+              sectionName: "80"
     loadBalancingWeight: 1
     locality:
       region: httproute/ns1/domain1/rule/0/backend/0
@@ -27,6 +35,14 @@
             address: 9.9.9.9
             portValue: 80
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Service
+              name: app2
+              namespace: ns2
+              sectionName: "80"
     loadBalancingWeight: 1
     locality:
       region: httproute/ns2/domain2/rule/0/backend/0

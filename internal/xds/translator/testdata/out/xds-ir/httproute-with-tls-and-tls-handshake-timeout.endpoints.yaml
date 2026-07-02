@@ -9,6 +9,12 @@
       loadBalancingWeight: 1
       metadata:
         filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Backend
+              name: backend-1
+              namespace: default
+              sectionName: ""
           envoy.transport_socket_match:
             name: httproute/default/httproute-1/rule/0/tls/0
     loadBalancingWeight: 1
@@ -28,6 +34,14 @@
             address: 7.7.7.7
             portValue: 8080
       loadBalancingWeight: 1
+      metadata:
+        filterMetadata:
+          envoy-gateway:
+            backend:
+              kind: Service
+              name: service-1
+              namespace: default
+              sectionName: "8080"
     loadBalancingWeight: 1
     locality:
       region: httproute/default/httproute-1/rule/0/backend/1
